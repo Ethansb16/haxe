@@ -6,7 +6,7 @@ import parser.ExprC;
 
 class Interpreter {
     public static function topInterp(expr:ExprC):String {
-        final value = interp(expr, Environment.empty());
+        final value = interp(expr, Environment.baseEnvironment());
 
         return serialize(value);
     }
@@ -45,6 +45,8 @@ class Interpreter {
             case CloV(requiredArgs, body, env):
                 final extendedEnv = env.extend(requiredArgs, passedArgs);
                 return interp(body, extendedEnv);
+            case PrimopV(op):
+                return op.apply(passedArgs);
             case _:
                 throw new Exception('QWJZ: expected a closure, got $closure');
         }

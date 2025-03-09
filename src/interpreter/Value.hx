@@ -1,5 +1,6 @@
 package interpreter;
 
+import interpreter.Primop;
 import parser.ExprC;
 
 enum Value {
@@ -7,5 +8,5 @@ enum Value {
     StringV(string:String);
     BoolV(bool:Bool);
     CloV(args:Array<String>, body:ExprC, env:Environment);
-    // TODO: Add PrimopV
+    PrimopV(op:Primop);
 }
