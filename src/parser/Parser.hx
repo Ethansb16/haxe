@@ -37,7 +37,14 @@ class Parser {
             return IdC(value);
         }
 
-        return StringC(value);
+        if (ParseUtils.isString(value)) {
+            // This removes the wrapping quotes
+            final regexp = ~/^"(.*)"$/;
+            regexp.match(value);
+            return StringC(regexp.matched(1));
+        }
+
+        throw new Exception('QWJZ: cannot parse $value');
     }
 
     private static function fail(sexp:Sexp) {

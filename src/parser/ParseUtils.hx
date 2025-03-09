@@ -3,13 +3,23 @@ package parser;
 import haxe.Exception;
 
 class ParseUtils {
-    private static final IS_NUMERIC_REGEXP:EReg = ~/^\d+(\.\d+)?$/;
+    private static final IS_NUMERIC_REGEXP = ~/^\d+(\.\d+)?$/;
+    private static final IS_STRING_REGEXP = ~/^".*"$/;
+    private static final IS_ID_REGEXP = ~/^[^"]+$/;
     private static final ILLEGAL_SYMBOLS = [
         "if",
         "proc",
         "declare",
         "in",
     ];
+
+    /**
+     * Takes a string and returns true if the string represents a string, false
+     * otherwise.
+     */
+    public static function isString(token:String):Bool {
+        return IS_STRING_REGEXP.match(token);
+    }
 
     /**
      * Takes a string and returns true if the string represents a number, false
@@ -24,7 +34,7 @@ class ParseUtils {
      * false otherwise. 
      */
     public static function isId(token:String):Bool {
-        return !ILLEGAL_SYMBOLS.contains(token);
+        return IS_ID_REGEXP.match(token) && !ILLEGAL_SYMBOLS.contains(token);
     }
 
     /**

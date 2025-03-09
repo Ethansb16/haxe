@@ -1,8 +1,6 @@
 package interpreter;
 
-import factory.EnvironmentFactory;
 import haxe.Exception;
-import haxe.exceptions.NotImplementedException;
 import parser.ExprC;
 
 class Interpreter {
@@ -19,8 +17,16 @@ class Interpreter {
             case AppC(proc, args):
                 final closure = interp(proc, env);
                 return handleClosure(closure, args.map(e -> interp(e, env)));
-            case _:
-                throw new NotImplementedException('Cannot interpret $expr');
+            case IfC(condition, ifTrue, ifFalse):
+                final truthiness = interp(condition, env);
+                switch truthiness {
+                    case BoolV(true):
+                        return interp(ifTrue, env);
+                    case BoolV(false):
+                        return interp(ifFalse, env);
+                    case _:
+                        throw new Exception('QWJZ: Invalid if condition $truthiness');
+                }
         }
     }
 

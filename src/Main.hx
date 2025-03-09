@@ -16,6 +16,10 @@ class Main {
 
     Sys.println(result);
 
+    Sys.println(topInterp(
+      TreeT([LeafT("if"), TreeT([LeafT("<="), LeafT("0"), LeafT("1")]), LeafT("\"1\""), LeafT("\"0\"")])
+    ));
+
     Sys.println(Interpreter.interp(
       AppC(
         ProcC(["a", "b"], AppC(IdC("*"), [IdC("a"), IdC("b")])),

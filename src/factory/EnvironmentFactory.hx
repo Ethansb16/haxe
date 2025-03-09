@@ -10,6 +10,7 @@ class EnvironmentFactory {
         "-",
         "*",
         "/",
+        "<=",
     ];
 
     private static final INITIAL_PRIMOPS = [
@@ -17,6 +18,7 @@ class EnvironmentFactory {
         PrimopV(new MinusPrimop()),
         PrimopV(new MultiplyPrimop()),
         PrimopV(new DividePrimop()),
+        PrimopV(new LeqPrimop()),
     ];
 
     public static function getEnvironment():Environment {
