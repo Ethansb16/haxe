@@ -1,36 +1,24 @@
+import tokenizer.Tokenizer;
 import parser.Sexp;
 import factory.EnvironmentFactory;
-import haxe.exceptions.NotImplementedException;
 import interpreter.Value;
 import parser.Parser;
 import interpreter.Interpreter;
 
 class Main {
   public static function main() {
-    final result = topInterp(
-      TreeT([
-        TreeT([LeafT("proc"), TreeT([LeafT("a"), LeafT("b")]), TreeT([LeafT("*"), LeafT("a"), LeafT("b")])]),
-        LeafT("5"),
-        LeafT("3")
-      ]));
+    Sys.println(topInterp("{{proc {a b} {if {<= a b} 1 0}} 1 1}"));
 
-    Sys.println(result);
+    Sys.println(topInterp('"foobar"'));
+    Sys.println(topInterp("*"));
+    Sys.println(topInterp("{proc {} 0}"));
 
-    Sys.println(topInterp(
-      TreeT([LeafT("if"), TreeT([LeafT("<="), LeafT("0"), LeafT("1")]), LeafT("\"1\""), LeafT("\"0\"")])
-    ));
-
-    Sys.println(Interpreter.interp(
-      AppC(
-        ProcC(["a", "b"], AppC(IdC("*"), [IdC("a"), IdC("b")])),
-        [NumC(2), NumC(4)]
-      ),
-      EnvironmentFactory.getEnvironment()
-    ));
+    Sys.println(topInterp("{{proc {a b} {* a b}} 5 3}"));
   }
 
-  public static function topInterp(program:Sexp) {
-    final parsed = Parser.parse(program);
+  public static function topInterp(program:String) {
+    final tokenized = Tokenizer.tokenize(program);
+    final parsed = Parser.parse(tokenized);
     final env = EnvironmentFactory.getEnvironment();
     final result = Interpreter.interp(parsed, env);
     return serialize(result);
@@ -39,11 +27,15 @@ class Main {
   private static function serialize(value:Value):String {
     switch value {
         case NumV(n):
-            return '$n';
+          return '$n';
         case StringV(string):
-            return '"$string"';
-        case _:
-            throw new NotImplementedException("Cannot serialize $value");
+          return '"$string"';
+        case PrimopV(_):
+          return "#<primop>";
+        case CloV(_, _, _):
+          return "#<procedure>";
+        case BoolV(bool):
+          return '$bool';
     }
   }
 }

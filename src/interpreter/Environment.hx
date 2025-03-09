@@ -1,7 +1,6 @@
 package interpreter;
 
 import interpreter.Value;
-import interpreter.impl.PlusPrimop;
 import haxe.Exception;
 import haxe.exceptions.ArgumentException;
 
