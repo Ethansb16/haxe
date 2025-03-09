@@ -45,5 +45,5 @@ class Main {
         case _:
             throw new NotImplementedException("Cannot serialize $value");
     }
-}
+  }
 }
