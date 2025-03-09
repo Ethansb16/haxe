@@ -7,5 +7,5 @@ enum Value {
     StringV(string:String);
     BoolV(bool:Bool);
     CloV(args:Array<String>, body:ExprC, env:Environment);
-    // TODO: Add ClosureV and PrimopV
+    // TODO: Add PrimopV
 }

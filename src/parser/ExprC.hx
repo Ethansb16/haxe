@@ -5,6 +5,6 @@ enum ExprC {
     StringC(string:String);
     IdC(symbol:String);
     IfC(condition:ExprC, ifTrue:ExprC, ifFalse:ExprC);
-    ProcC(args:Array<ExprC>, body:ExprC);
+    ProcC(args:Array<String>, body:ExprC);
     AppC(proc:ExprC, args:Array<ExprC>);
 }
