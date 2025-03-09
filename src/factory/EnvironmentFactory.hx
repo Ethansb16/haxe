@@ -5,14 +5,14 @@ import interpreter.Value;
 import interpreter.Environment;
 
 class EnvironmentFactory {
-    private static final initialSymbols = [
+    private static final INITIAL_SYMBOLS = [
         "+",
         "-",
         "*",
         "/",
     ];
 
-    private static final initialPrimops = [
+    private static final INITIAL_PRIMOPS = [
         PrimopV(new PlusPrimop()),
         PrimopV(new MinusPrimop()),
         PrimopV(new MultiplyPrimop()),
@@ -20,6 +20,6 @@ class EnvironmentFactory {
     ];
 
     public static function getEnvironment():Environment {
-        return Environment.empty().extend(initialSymbols, initialPrimops);
+        return Environment.empty().extend(INITIAL_SYMBOLS, INITIAL_PRIMOPS);
     }
 }

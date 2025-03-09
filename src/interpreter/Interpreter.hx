@@ -6,24 +6,7 @@ import haxe.exceptions.NotImplementedException;
 import parser.ExprC;
 
 class Interpreter {
-    public static function topInterp(expr:ExprC):String {
-        final value = interp(expr, EnvironmentFactory.getEnvironment());
-
-        return serialize(value);
-    }
-
-    private static function serialize(value:Value):String {
-        switch value {
-            case NumV(n):
-                return '$n';
-            case StringV(string):
-                return '"$string"';
-            case _:
-                throw new NotImplementedException("Cannot serialize $value");
-        }
-    }
-
-    private static function interp(expr:ExprC, env:Environment):Value {
+    public static function interp(expr:ExprC, env:Environment):Value {
         switch expr {
             case NumC(n):
                 return NumV(n);
