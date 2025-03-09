@@ -4,7 +4,7 @@ import interpreter.Primop;
 import parser.ExprC;
 
 enum Value {
-    NumV(n:Int);
+    NumV(n:Float);
     StringV(string:String);
     BoolV(bool:Bool);
     CloV(args:Array<String>, body:ExprC, env:Environment);

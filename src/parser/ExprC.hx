@@ -1,7 +1,7 @@
 package parser;
 
 enum ExprC {
-    NumC(n:Int);
+    NumC(n:Float);
     StringC(string:String);
     IdC(symbol:String);
     IfC(condition:ExprC, ifTrue:ExprC, ifFalse:ExprC);

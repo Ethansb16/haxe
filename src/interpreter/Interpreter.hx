@@ -1,12 +1,13 @@
 package interpreter;
 
+import factory.EnvironmentFactory;
 import haxe.Exception;
 import haxe.exceptions.NotImplementedException;
 import parser.ExprC;
 
 class Interpreter {
     public static function topInterp(expr:ExprC):String {
-        final value = interp(expr, Environment.baseEnvironment());
+        final value = interp(expr, EnvironmentFactory.getEnvironment());
 
         return serialize(value);
     }

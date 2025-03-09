@@ -8,7 +8,7 @@ class PlusPrimop implements Primop {
             case [NumV(a), NumV(b)]:
                 return NumV(a + b);
             case _:
-                throw new Exception('Invalid arguments for + $args');
+                throw new Exception('QWJZ: Invalid arguments for + $args');
         }
     }
 

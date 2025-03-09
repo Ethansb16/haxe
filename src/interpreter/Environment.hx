@@ -6,15 +6,8 @@ import haxe.Exception;
 import haxe.exceptions.ArgumentException;
 
 class Environment {
-    private static final primopSymbols = ["+"];
-    private static final primopValues = [PrimopV(new PlusPrimop())];
-
     private final symbols:Array<String>;
     private final values:Array<Value>;
-
-    public static function baseEnvironment() {
-        return new Environment(primopSymbols, primopValues);
-    }
 
     public static function empty() {
         return new Environment([], []);

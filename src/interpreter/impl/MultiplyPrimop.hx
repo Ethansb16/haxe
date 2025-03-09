@@ -2,13 +2,13 @@ package interpreter.impl;
 
 import haxe.Exception;
 
-class MinusPrimop implements Primop {
+class MultiplyPrimop implements Primop {
     public function apply(args:Array<Value>):Value {
         switch args {
             case [NumV(a), NumV(b)]:
-                return NumV(a - b);
+                return NumV(a * b);
             case _:
-                throw new Exception('QWJZ: Invalid arguments for - $args');
+                throw new Exception('QWJZ: Invalid arguments for * $args');
         }
     }
 
