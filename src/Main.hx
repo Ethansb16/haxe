@@ -14,6 +14,8 @@ class Main {
     Sys.println(topInterp("{proc {} 0}"));
 
     Sys.println(topInterp("{{proc {a b} {* a b}} 5 3}"));
+
+    Sys.println(topInterp("{declare {[a 5] [b 7]} in {* a b}}"));
   }
 
   public static function topInterp(program:String) {

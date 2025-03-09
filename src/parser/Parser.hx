@@ -13,6 +13,10 @@ class Parser {
                 final ids = ParseUtils.sexpsToIds(rawIds);
                 final body = parse(rawBody);
                 return ProcC(ids, body);
+            case TreeT([LeafT("declare"), TreeT(declarations), LeafT("in"), rawBody]):
+                final clauses = declarations.map(x -> new ClauseC(x));
+                return AppC(ProcC(clauses.map(x -> x.symbol), parse(rawBody)),
+                            clauses.map(x -> x.value));
             case TreeT(nodes):
                 // Parse {expr expr*}
                 if (nodes.length == 0) {
