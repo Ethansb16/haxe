@@ -16,6 +16,8 @@ class Main {
     Sys.println(topInterp("{{proc {a b} {* a b}} 5 3}"));
 
     Sys.println(topInterp("{declare {[a 5] [b 7]} in {* a b}}"));
+  
+    Sys.println(topInterp('{declare {[f {proc {f n} {if {<= n 1} 1 {* n {f f {- n 1}}}}}]} in {f f 6}}'));
   }
 
   public static function topInterp(program:String) {
