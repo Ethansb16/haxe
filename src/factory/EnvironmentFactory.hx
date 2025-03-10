@@ -11,6 +11,9 @@ class EnvironmentFactory {
         "*",
         "/",
         "<=",
+        "read-str",
+        "read-num",
+        "equal?"
     ];
 
     private static final INITIAL_PRIMOPS = [
@@ -19,6 +22,9 @@ class EnvironmentFactory {
         PrimopV(new MultiplyPrimop()),
         PrimopV(new DividePrimop()),
         PrimopV(new LeqPrimop()),
+        PrimopV(new ReadStrPrimop()),
+        PrimopV(new ReadNumPrimop()),
+        PrimopV(new EqualPrimop())
     ];
 
     public static function getEnvironment():Environment {
