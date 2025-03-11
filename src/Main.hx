@@ -19,9 +19,11 @@ class Main {
   
     Sys.println(topInterp('{declare {[f {proc {f n} {if {<= n 1} 1 {* n {f f {- n 1}}}}}]} in {f f 6}}'));
 
-    Sys.println(topInterp("{read-num}"));
-    Sys.println(topInterp("{read-str}"));
+    //Sys.println(topInterp("{read-num}"));
+    //Sys.println(topInterp("{read-str}"));
     Sys.println(topInterp("{equal? 1 2}"));
+    Sys.println(topInterp('{++ "this " "Should work"}'));
+    Sys.println(topInterp('{seq "this" "Should work"}'));
   }
 
   public static function topInterp(program:String) {

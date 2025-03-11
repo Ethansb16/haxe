@@ -110,11 +110,11 @@ class Main:
         python_Lib.printString((("" + ("null" if _hx_str is None else _hx_str)) + HxOverrides.stringOrNull(python_Lib.lineEnd)))
         _hx_str = Std.string(Main.topInterp("{declare {[f {proc {f n} {if {<= n 1} 1 {* n {f f {- n 1}}}}}]} in {f f 6}}"))
         python_Lib.printString((("" + ("null" if _hx_str is None else _hx_str)) + HxOverrides.stringOrNull(python_Lib.lineEnd)))
-        _hx_str = Std.string(Main.topInterp("{read-num}"))
-        python_Lib.printString((("" + ("null" if _hx_str is None else _hx_str)) + HxOverrides.stringOrNull(python_Lib.lineEnd)))
-        _hx_str = Std.string(Main.topInterp("{read-str}"))
-        python_Lib.printString((("" + ("null" if _hx_str is None else _hx_str)) + HxOverrides.stringOrNull(python_Lib.lineEnd)))
         _hx_str = Std.string(Main.topInterp("{equal? 1 2}"))
+        python_Lib.printString((("" + ("null" if _hx_str is None else _hx_str)) + HxOverrides.stringOrNull(python_Lib.lineEnd)))
+        _hx_str = Std.string(Main.topInterp("{++ \"this \" \"Should work\"}"))
+        python_Lib.printString((("" + ("null" if _hx_str is None else _hx_str)) + HxOverrides.stringOrNull(python_Lib.lineEnd)))
+        _hx_str = Std.string(Main.topInterp("{seq \"this\" \"Should work\"}"))
         python_Lib.printString((("" + ("null" if _hx_str is None else _hx_str)) + HxOverrides.stringOrNull(python_Lib.lineEnd)))
 
     @staticmethod
@@ -582,6 +582,49 @@ class interpreter_impl_EqualPrimop:
                 raise haxe_Exception(("QWJZ: Invalid arguments for - " + Std.string(args)))
         else:
             raise haxe_Exception(("QWJZ: Invalid arguments for - " + Std.string(args)))
+
+
+
+class interpreter_impl_JoinPrimop:
+    _hx_class_name = "interpreter.impl.JoinPrimop"
+    __slots__ = ()
+    _hx_methods = ["apply"]
+    _hx_interfaces = [interpreter_Primop]
+
+    def __init__(self):
+        pass
+
+    def apply(self,args):
+        if (len(args) == 2):
+            _g = (args[0] if 0 < len(args) else None)
+            _g1 = (args[1] if 1 < len(args) else None)
+            if (_g.index == 1):
+                if (_g1.index == 1):
+                    b = _g1.params[0]
+                    a = _g.params[0]
+                    return interpreter_Value.StringV((("null" if a is None else a) + ("null" if b is None else b)))
+                else:
+                    raise haxe_Exception(("QWJZ: Invalid arguments for ++ " + Std.string(args)))
+            else:
+                raise haxe_Exception(("QWJZ: Invalid arguments for ++ " + Std.string(args)))
+        else:
+            raise haxe_Exception(("QWJZ: Invalid arguments for ++ " + Std.string(args)))
+
+
+
+class interpreter_impl_SeqPrimop:
+    _hx_class_name = "interpreter.impl.SeqPrimop"
+    __slots__ = ()
+    _hx_methods = ["apply"]
+    _hx_interfaces = [interpreter_Primop]
+
+    def __init__(self):
+        pass
+
+    def apply(self,args):
+        if (len(args) == 0):
+            raise haxe_Exception(("QWJZ: Invalid arguments for seq " + Std.string(args)))
+        return python_internal_ArrayImpl._get(args, (len(args) - 1))
 
 
 
@@ -1954,8 +1997,8 @@ Math.POSITIVE_INFINITY = float("inf")
 Math.NaN = float("nan")
 Math.PI = python_lib_Math.pi
 
-factory_EnvironmentFactory.INITIAL_SYMBOLS = ["+", "-", "*", "/", "<=", "read-str", "read-num", "equal?"]
-factory_EnvironmentFactory.INITIAL_PRIMOPS = [interpreter_Value.PrimopV(interpreter_impl_PlusPrimop()), interpreter_Value.PrimopV(interpreter_impl_MinusPrimop()), interpreter_Value.PrimopV(interpreter_impl_MultiplyPrimop()), interpreter_Value.PrimopV(interpreter_impl_DividePrimop()), interpreter_Value.PrimopV(interpreter_impl_LeqPrimop()), interpreter_Value.PrimopV(interpreter_impl_ReadStrPrimop()), interpreter_Value.PrimopV(interpreter_impl_ReadNumPrimop()), interpreter_Value.PrimopV(interpreter_impl_EqualPrimop())]
+factory_EnvironmentFactory.INITIAL_SYMBOLS = ["+", "-", "*", "/", "<=", "read-str", "read-num", "equal?", "++", "seq"]
+factory_EnvironmentFactory.INITIAL_PRIMOPS = [interpreter_Value.PrimopV(interpreter_impl_PlusPrimop()), interpreter_Value.PrimopV(interpreter_impl_MinusPrimop()), interpreter_Value.PrimopV(interpreter_impl_MultiplyPrimop()), interpreter_Value.PrimopV(interpreter_impl_DividePrimop()), interpreter_Value.PrimopV(interpreter_impl_LeqPrimop()), interpreter_Value.PrimopV(interpreter_impl_ReadStrPrimop()), interpreter_Value.PrimopV(interpreter_impl_ReadNumPrimop()), interpreter_Value.PrimopV(interpreter_impl_EqualPrimop()), interpreter_Value.PrimopV(interpreter_impl_JoinPrimop()), interpreter_Value.PrimopV(interpreter_impl_SeqPrimop())]
 parser_ParseUtils.IS_NUMERIC_REGEXP = EReg("^\\d+(\\.\\d+)?$","")
 parser_ParseUtils.IS_STRING_REGEXP = EReg("^\".*\"$","")
 parser_ParseUtils.IS_ID_REGEXP = EReg("^[^\"]+$","")
