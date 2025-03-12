@@ -1,15 +1,15 @@
 package interpreter.impl;
 
+import serialization.Serializer;
 import haxe.Exception;
 
 class JoinPrimop implements Primop {
     public function apply(args:Array<Value>):Value {
-        switch args {
-            case [StringV(a), StringV(b)]:
-                return StringV(a + b);
-            case _:
-                throw new Exception('QWJZ: Invalid arguments for ++ $args');
+        if (args.length == 0) {
+            throw new Exception('QWJZ: Invalid arguments for ++ $args');
         }
+
+        return StringV(args.map(Serializer.prettySerialize).join(""));
     }
 
     public function new() {}
